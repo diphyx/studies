@@ -2,7 +2,7 @@
 
 # Ensure the script stops on error
 set -e
-
+cd /data
 # Check if the input files exist
 if [ ! -f "ex1.fa" ]; then
     echo "Reference file ex1.fa not found!"
@@ -18,13 +18,12 @@ fi
 echo "Indexing the reference FASTA..."
 samtools faidx ex1.fa
 
-# Step 2: Convert SAM to BAM, sort, and index the BAM file.
-# Note: Assuming ex1.sam.gz is gzipped. If not, adjust accordingly.
+# Step 2: Convert gzipped SAM to BAM using the reference FASTA for sequence dictionary, sort it, and index.
 echo "Converting SAM to BAM, sorting, and indexing..."
-samtools sort -o ex1.bam ex1_unsorted.bam
-samtools index ex1.bam
+# Decompress, convert SAM to BAM with reference for sequence dictionary, then sort and output as ex1.bam
+samtools view -bT ex1.fa ex1.sam.gz | samtools sort -o ex1.bam -
 
-# Clean up intermediate files
-rm ex1_unsorted.bam
+# Step 3: Index the sorted BAM file.
+samtools index ex1.bam
 
 echo "Script completed successfully."

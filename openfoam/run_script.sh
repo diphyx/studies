@@ -19,7 +19,7 @@ fi
 
 # Unzip the archive
 echo "Unzipping $zip_archive_name..."
-unzip "$zip_archive_name" -d "$simulation_folder"
+unzip -o "$zip_archive_name" -d "$simulation_folder"
 
 # Check if the simulation folder exists after extraction
 if [ ! -d "$simulation_folder" ]; then

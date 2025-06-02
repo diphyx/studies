@@ -3,20 +3,8 @@
 # Set the name of the folder that will be created upon unzipping the archive
 case_study_folder="automated-lysozyme-water-forcefields-GROMACS-master"
 
-# Define the path to the ZIP archive
-zip_archive="/data/automated-lysozyme-water-forcefields-GROMACS-master.zip"
-
-# Navigate to the /data directory where the ZIP archive is located
-cd /data || { echo "Failed to change directory to /data. Exiting."; exit 1; }
-
-# Check if the ZIP archive exists and can be read
-if [ ! -r "$zip_archive" ]; then
-    echo "ZIP archive $zip_archive not found or is not readable. Exiting."
-    exit 1
-fi
-
-# Unzip the archive, and check if the unzip operation was successful
-unzip -o "$zip_archive" || { echo "Failed to unzip $zip_archive. Exiting."; exit 1; }
+# Navigate to the /volume/data directory where the ZIP archive is located
+cd /volume/data || { echo "Failed to change directory to /volume/data. Exiting."; exit 1; }
 
 # Check if the case study folder exists after extraction
 if [ ! -d "$case_study_folder" ]; then
